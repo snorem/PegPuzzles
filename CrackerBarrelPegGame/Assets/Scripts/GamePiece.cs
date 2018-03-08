@@ -12,6 +12,7 @@ public class GamePiece : MonoBehaviour
     [SerializeField][Tooltip("Bottom-Left Peg")] GameObject BL;
     [SerializeField][Tooltip("Bottom-Right Peg")] GameObject BR; 
 
+    // Checks to see if this piece can jump any of its neighboring pieces
     public bool CanJump()
     {      
         if (gameObject.GetComponent<Renderer>().enabled)
@@ -28,7 +29,8 @@ public class GamePiece : MonoBehaviour
         return false;
     }
 
-    private bool CanJump(GameObject j)
+    // Checks to see if this piece can jump the supplied piece
+    bool CanJump(GameObject j)
     {
         if (VerifyActivePiece(j))
             if(j.GetComponent<GamePiece>().CanBeJumped(gameObject)) 
@@ -41,15 +43,7 @@ public class GamePiece : MonoBehaviour
     // Requires valid neighboring piece and an empty space opposite it to return true
     public bool CanBeJumped(GameObject p)
     {
-        GameObject pegToCheck = null;
-        if (p == L) pegToCheck = R;
-        else if (p == R) pegToCheck = L;
-        else if (p == T) pegToCheck = B;
-        else if (p == B) pegToCheck = T; 
-        else if (p == TL) pegToCheck = BR;
-        else if (p == TR) pegToCheck = BL;
-        else if (p == BL) pegToCheck = TR;
-        else if (p == BR) pegToCheck = TL;
+        GameObject pegToCheck = GetOppositePiece(p);
 
         if (pegToCheck != null && pegToCheck.tag != "nullObj")
             return !VerifyActivePiece(pegToCheck);
@@ -57,7 +51,7 @@ public class GamePiece : MonoBehaviour
         return false;
     }
 
-    bool VerifyActivePiece(GameObject p)
+    public bool VerifyActivePiece(GameObject p)
     {
         if (p != null) return p.GetComponent<Renderer>().enabled;
         return false;

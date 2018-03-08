@@ -1,6 +1,6 @@
 WindowsStandalone
 SceneListBegin?
-Assets/Scenes/main.unity
+Assets/Scenes/Level1.unity
 Assets/Scenes/Level2.unity
 Assets/Scenes/Level3.unity
 SceneListEnd?

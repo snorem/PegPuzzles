@@ -16,6 +16,7 @@ public class GameBoard : MonoBehaviour
     
     void Awake()
     {
+        // Making the board globally accessable, without keeping it through scenes
         if (instance == null) instance = this;
         else if (instance != this)
         {
@@ -28,6 +29,7 @@ public class GameBoard : MonoBehaviour
         ActiveAnimation = false;
         LevelComplete = false;
 
+        // To complete a level n-1 moves are made, where n is the peg count
         foreach (GameObject peg in PegHoles)
             if (peg.GetComponent<Renderer>().enabled)
                 TotalMoves += 1;
@@ -53,25 +55,19 @@ public class GameBoard : MonoBehaviour
         else if (!AvailableMoves()) NextLevel();
     }
 
-    void NextLevel()
-    {
-        
-        CreateLevelText();
-        CreateButton();
-    }
-
     [SerializeField]
     private GameObject Button;
     [SerializeField]
     private GameObject Message;
 
-    void CreateButton()
+    void NextLevel()
     {
-        GameObject init = (GameObject)Instantiate(Button, new Vector3(0,-0.5f,0), Quaternion.identity);
+        CreateObject(Button, -0.5f);
+        CreateObject(Message, 0.5f);
     }
 
-    void CreateLevelText()
+    void CreateObject(GameObject img, float deltaY)
     {
-        GameObject init = (GameObject)Instantiate(Message, new Vector3(0,0.5f,0), Quaternion.identity);
+        GameObject init = (GameObject)Instantiate(img, new Vector3(0, deltaY, 0), Quaternion.identity);
     }
 }

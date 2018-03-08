@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class NextLevel : MonoBehaviour {
 
-    [SerializeField] private Sprite[] Images;
+    [SerializeField] Sprite[] Images;
 
     void Awake()
     {
